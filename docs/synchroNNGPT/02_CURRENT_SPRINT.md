@@ -1,6 +1,6 @@
 # Current Sprint
 
-## Sprint 0 — Development Foundation
+## Sprint 0 — Development Foundation (Completed)
 
 ### Goal
 
@@ -20,9 +20,9 @@ NNGPT Development Teamの創設理念と、Codex・NNGPT間の同期基盤をGit
 - [x] 指定された文書構成が作成されている
 - [x] 創設理念とFounding Declarationが記録されている
 - [x] AISAの基本的な提案モデルが記録されている
-- [ ] Pull Requestがレビューされ、AgreeとAlignが確認されている
-- [ ] mainへmergeされている
+- [x] Pull Requestがレビューされ、AgreeとAlignが確認されている
+- [x] mainへmergeされている
 
 ### Next
 
-内容レビュー後にmainへmergeし、Sprint 1でAISAの最小診断仕様を定義する。
+Sprint1でAISA Core Diagnostic Frameworkを開始する。
