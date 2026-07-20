@@ -1,9 +1,8 @@
 # Architecture Principles
 
-## Evolution over Perfection
+## One Session Principle
 
-Deliver the best practical solution first.
-Improve continuously.
+Each consultation should provide a complete and actionable first recommendation.
 
 ---
 
@@ -15,17 +14,48 @@ Avoid unnecessary API usage.
 
 ---
 
-## One Session Principle
+## AKE Knowledge Loop
 
-Each consultation should provide a complete and actionable first recommendation.
+AISA continuously improves through accumulated knowledge.
 
----
+Unknown consultations are not failures.
 
-## AISA Knowledge Engine (AKE)
+Instead they become new knowledge assets.
 
-AKE is the permanent knowledge asset of AISA.
+### Flow
 
-Real consultations expand AKE.
+Consultation
 
-The diagnostic engine depends on AKE,
-not on AI APIs.
+↓
+
+AKE Search
+
+↓
+
+Known
+→ Diagnosis
+
+Unknown
+
+↓
+
+Engineering Analysis
+
+↓
+
+Human Review
+
+↓
+
+AKE Registration
+
+↓
+
+Future Automatic Diagnosis
+
+### Principles
+
+- Unknown is an opportunity to learn.
+- Every analyzed consultation becomes a reusable asset.
+- Recommendation Engine always prioritizes AKE before any other processing.
+- AKE grows continuously through real-world consultations.
