@@ -67,3 +67,23 @@ reviewed,
 and permanently registered into AKE.
 
 AKE becomes the continuously growing knowledge asset of AISA.
+
+## ADR-00X — Recommendation Engine is driven by AKE
+
+### Decision
+
+The Recommendation Engine does not contain business knowledge.
+
+Instead, it evaluates and ranks diagnostic patterns stored in the AISA Knowledge Engine (AKE).
+
+Unknown requests are never discarded.
+
+When sufficient knowledge does not exist,
+the request enters the Unknown Route,
+is analyzed,
+reviewed,
+and registered as a new AKE Pattern.
+
+### Status
+
+Accepted
