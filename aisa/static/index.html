@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AISA First Boot</title>
+    <link rel="stylesheet" href="/static/styles.css">
+  </head>
+  <body>
+    <main class="shell">
+      <header>
+        <p class="eyebrow">IWP-0001 · Vertical Slice 0</p>
+        <h1>AISA First Boot</h1>
+        <p class="lead">一つの相談から、最初の具体的な行動を見つけます。</p>
+      </header>
+
+      <section id="welcome" class="panel">
+        <h2>相談を始める</h2>
+        <p>4つの選択式質問に答えると、AISAが最初の提案を表示します。</p>
+        <button id="start-button" class="primary">開始する</button>
+      </section>
+
+      <section id="consultation" class="panel hidden" aria-live="polite">
+        <div class="progress">
+          <span id="progress-label">Question</span>
+          <button id="restart-button" class="secondary">最初からやり直す</button>
+        </div>
+        <h2 id="question-text"></h2>
+        <div id="options" class="options"></div>
+      </section>
+
+      <section id="result" class="panel hidden" aria-live="polite">
+        <p id="result-badge" class="badge"></p>
+        <h2 id="result-title"></h2>
+        <p id="result-summary"></p>
+        <div id="recommendations"></div>
+        <div id="first-action" class="first-action"></div>
+        <details>
+          <summary>Consultation Context</summary>
+          <pre id="context-output"></pre>
+        </details>
+        <button id="result-restart-button" class="primary">もう一度相談する</button>
+      </section>
+
+      <p id="error" class="error hidden" role="alert"></p>
+    </main>
+    <script src="/static/app.js"></script>
+  </body>
+</html>

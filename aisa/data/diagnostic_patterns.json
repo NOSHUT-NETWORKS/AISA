@@ -1,0 +1,66 @@
+[
+  {
+    "pattern_id": "AKE-DOC-001",
+    "business_category": "document_creation",
+    "consultation_purpose": "automation",
+    "applicable_conditions": {
+      "current_tool": "word",
+      "main_problem": "repetitive_document_creation"
+    },
+    "exclusion_conditions": {},
+    "title": "定型文書作成のテンプレート化",
+    "summary": "繰り返し作成するWord文書を、入力項目とテンプレートに分離して標準化します。",
+    "recommended_architecture": "Word template + structured input + local generation",
+    "ai_requirement_level": "optional",
+    "automation_rate": "medium",
+    "estimated_cost": "low",
+    "difficulty": "low",
+    "maintainability": "high",
+    "risks": ["テンプレートの項目定義が曖昧だと再利用性が下がる"],
+    "recommendations": {
+      "cost": "無料: Wordテンプレートと手動入力表から開始。低価格: Pythonでローカル生成。本格導入: 承認フローと文書管理を連携。",
+      "time": "最頻出の文書1種類に絞り、固定部分と入力部分を分離して即日試作する。",
+      "ai": "まずルールベース生成を完成させ、文章の言い換えだけを将来の任意AI拡張にする。"
+    },
+    "first_actions": {
+      "cost": "最も頻繁に作るWord文書を1つ選び、固定文と可変項目に色分けしてください。",
+      "time": "今日作成した文書を1つ複製し、再利用できるテンプレート項目を5個以内で記録してください。",
+      "ai": "AIを使わず再現できるテンプレート生成手順を先に1回通してください。"
+    },
+    "default_first_action": "対象文書を1つ選び、固定文と可変項目を分けてください。",
+    "success_probability": 0.85,
+    "related_patterns": []
+  },
+  {
+    "pattern_id": "AKE-DATA-001",
+    "business_category": "data_entry",
+    "consultation_purpose": "efficiency",
+    "applicable_conditions": {
+      "current_tool": "excel",
+      "main_problem": "manual_data_entry"
+    },
+    "exclusion_conditions": {},
+    "title": "Excel転記作業の入力標準化",
+    "summary": "転記元と転記先を明確にし、入力規則と小さな自動化から重複入力を減らします。",
+    "recommended_architecture": "Excel table + validation + local import script",
+    "ai_requirement_level": "none",
+    "automation_rate": "medium",
+    "estimated_cost": "low",
+    "difficulty": "low",
+    "maintainability": "high",
+    "risks": ["入力元の形式が頻繁に変わる場合はルール保守が必要"],
+    "recommendations": {
+      "cost": "無料: Excelテーブルと入力規則を整備。低価格: Power Queryを利用。本格導入: 業務システム間連携を検討。",
+      "time": "1日で最も回数の多い転記作業を1つ選び、列対応表を作成する。",
+      "ai": "定型転記にはAIを使わず、例外分類が必要な場合のみ将来検討する。"
+    },
+    "first_actions": {
+      "cost": "転記元と転記先の列名を1枚の対応表にしてください。",
+      "time": "今日の転記回数が最も多い作業を1つ計測してください。",
+      "ai": "AIなしで処理できる定型行と、人の判断が必要な例外行を分けてください。"
+    },
+    "default_first_action": "転記元と転記先の列対応表を作成してください。",
+    "success_probability": 0.8,
+    "related_patterns": []
+  }
+]
