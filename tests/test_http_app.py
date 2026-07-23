@@ -58,6 +58,17 @@ class HTTPApplicationTests(unittest.TestCase):
         )
         self.assertEqual("question", restarted["status"])
 
+    def test_first_light_landing_page(self) -> None:
+        with urlopen(self.base_url + "/", timeout=3) as response:
+            body = response.read().decode("utf-8")
+
+        self.assertEqual(200, response.status)
+        self.assertIn("<h1>AISA</h1>", body)
+        self.assertIn("AI Solution Architect", body)
+        self.assertIn("Version 0.0.1", body)
+        self.assertIn("Vertical Slice 0", body)
+        self.assertIn("Start Consultation", body)
+
     def test_invalid_answer_returns_bad_request(self) -> None:
         _, started = self._request("/api/sessions", "POST", {})
         with self.assertRaises(HTTPError) as error:
