@@ -268,3 +268,227 @@ Future Automatic Diagnosis
 ### Reason
 
 情報不足の相談が誤って人間レビューへ送られることを防ぐため。
+
+## ADR-0011 — Introduce AISA LABO
+
+- Status: Frozen
+- Frozen date: 2026-07-24
+
+### Context
+
+AISAは、構造化相談からConsultation Contextを生成し、AKEのDiagnostic Patternを用いて説明可能なDiagnosis Reportを提示する。Version 0.0.1は2026-07-23に最初のEnd-to-End Consultationを完了した。
+
+次のArchitecture世代では、個々の相談をその場限りの結果として終わらせず、匿名化・構造化された相談事例として将来の相談へ役立てる必要がある。成功事例だけでなく、うまくいかなかった事例も学習可能な知見として扱う。
+
+### Decision
+
+構造化された相談事例を収集・提示する知見ライブラリとして **AISA LABO** を導入する。
+
+- Internal product name: AISA LABO
+- UI subtitle: みんなの知見ライブラリ
+- Core philosophy: ひとつの相談が、次の誰かの力になる。
+- English principle: Every consultation becomes knowledge for the next consultation.
+
+AISA LABOは、匿名化された成功・失敗の相談事例を扱う、編集・構造化されたKnowledge Libraryである。掲示板、Social Feed、未整理のForum、Raw Search Resultsではない。利用体験は、関連する知見と予期しなかった有用な事例に出会える、Curated Bookstoreに近いものとする。
+
+将来の共有Conceptは次の通りとする。
+
+```text
+Consultation
+→ User consent
+→ Anonymization
+→ Structuring
+→ Pattern and tag assignment
+→ AISA LABO registration
+```
+
+### Rationale
+
+- 類似相談、成功したApproach、失敗したApproachから学べる。
+- 少数派TechnologyのRare Knowledgeを発見できる。
+- TechnologyやProblemの一般性・希少性を理解できる。
+- Evidence-based Recommendationを支えられる。
+- Patternと利用者の増加に伴い、Knowledge Libraryの価値が高まる。
+- 将来のAI Curatorが相談ごとに有用なCaseを選べる。
+
+### Consequences
+
+- AISAは、AI-powered consultation applicationから **AI-powered consultation and collective knowledge platform** へ拡張される。
+- AKEが保持してきたDiagnostic Patternの責務は維持する。
+- AISA LABOはPatternに加え、構造化されたCaseとEvidenceを収集・提示するKnowledge領域となる。
+- Caseには成功・失敗Outcomeを含められる。
+- Sample dataを利用する場合は、実EvidenceではなくFictional/Demo Dataと明示する。
+
+### Boundaries
+
+このDecisionは、以下を設計または実装しない。
+
+- 匿名化の詳細方式
+- PrivacyおよびPersonal Data Processing
+- Consentの詳細仕様
+- ModerationまたはGovernance Workflow
+- AuthenticationおよびPublic Posting
+- Production Database
+- Evidence Ranking Algorithm
+- External Source Ingestion
+
+これらは、別途Frozen Decisionが存在する場合を除き、将来設計とする。
+
+### Relationship
+
+- **Pattern Engine:** Consultation Contextに適合するPattern候補を扱う。既存Recommendation Engine内のPattern Matching責務を概念上表現するが、今回Runtimeを分割しない。
+- **AISA LABO:** PatternとTagに関連付けられた構造化Case/Evidenceを収集・提示する。
+- **Evidence Engine:** 現在のConsultationに適したEvidenceを将来選択・順位付けする。
+- **Recommendation Engine:** Pattern MatchとRelevant Evidenceを用いてRecommendationを生成する。
+- **Diagnosis Report:** Recommendationと、その根拠となるEvidenceおよび時間的Contextを説明可能な形で提示する。
+
+AISA LABOはRecommendation Engineを置き換えず、Knowledge Sourceとして支える。
+
+## ADR-0012 — Temporal Knowledge Architecture
+
+- Status: Frozen
+- Frozen date: 2026-07-24
+
+### Context
+
+Knowledge is not timeless.
+
+同じConsultationでも、2026年7月と2029年7月では、Product仕様、License条件、API、Cloud環境などの変化により、適切なRecommendationが異なる可能性がある。古いKnowledgeを上書きまたは黙って削除すると、判断の根拠と変化の履歴を失う。
+
+Principles:
+
+- 知識は完成しない。
+- 知識は育ち続ける。
+- AISAは知識とともに進化する。
+
+### Decision
+
+AISAはKnowledgeをtime-dependent、version-aware、historically traceableなものとして扱う。
+
+Frozen conceptual architecture:
+
+```text
+Consultation
+→ Pattern Engine
+→ AISA LABO
+→ Knowledge Lifecycle
+→ Evidence Engine
+→ Recommendation Engine
+→ Diagnosis Report
+```
+
+古いKnowledgeは上書きや無通知削除を行わず、Historical Evidenceとして保持し、新しいKnowledgeによりSupersedeできる。
+
+### Temporal Model
+
+Conceptual Knowledge objectは少なくとも以下を持つ。
+
+- `id`
+- `pattern`
+- `category`
+- `technologies`
+- `created_at`
+- `observed_at`
+- `last_verified_at`
+- `valid_from`
+- `valid_until`
+- `confidence`
+- `freshness_status`
+- `evidence_count`
+- `source_type`
+- `ai_summary`
+
+将来拡張可能なEnvironmental Metadata:
+
+- Product and application version
+- Operating system
+- Cloud environment
+- Tenant or organization conditions
+- License conditions
+- API version
+- Deployment model
+- Region
+- Organization scale
+
+これらのOptional Fieldsを、現在のRuntimeまたはIWPへ一律に強制しない。
+
+### Freshness Statuses
+
+- **CURRENT:** 現在検証済み、または適用可能とみなされる。
+- **AGING:** まだ有用な可能性があるが、再検証が望ましくなる時点に近づいている。
+- **STALE:** Warningまたは追加検証なしに依存すべきではない。
+- **SUPERSEDED:** 新しいKnowledgeに置き換えられたが、Traceabilityのため保持する。
+- **HISTORICAL:** 時系列分析と変化の理解を主目的に保持する。
+- **UNKNOWN:** 現在のValidityを判定できない。
+
+STALE、SUPERSEDED、HISTORICALは黙って削除しない。
+
+### Historical Preservation and Supersession
+
+- Newer Knowledge is not automatically better.
+- Older Knowledge may remain strong Evidence when repeatedly verified and still applicable.
+- Supersessionは削除ではなく、置換関係と履歴を保持する。
+- Diagnosis Reportは、EvidenceのObserved時点、Verification履歴、現在Validityを説明できる方向へ拡張する。
+
+説明例:
+
+- This case was observed in 2026 and has been verified repeatedly since then.
+- This approach succeeded in 2026 but is no longer recommended because the product specification changed.
+- This evidence is old and its present validity is unknown.
+
+### Knowledge Lifecycle Responsibilities
+
+Knowledge Lifecycleは以下の時間的状態を管理する。
+
+- Temporal state
+- Freshness
+- Verification history
+- Validity period
+- Supersession relationship
+- Historical preservation
+
+誰または何が更新・検証・承認するかは、この責務定義に含めない。
+
+### Relationship to Evidence Engine
+
+Evidence Engineは、現在のConsultationに適したEvidenceを選択・順位付けする。
+
+Future conceptual ranking:
+
+```text
+Pattern Match
+× Evidence Quality
+× Freshness
+× Environment Match
+× Verification Score
+```
+
+これは概念式であり、確定した数学的実装ではない。Weight、Threshold、Scoring AlgorithmはこのDecisionで定義しない。
+
+Recommendation EngineはPattern MatchingとRelevant Evidenceを用いてRecommendationを生成し、Diagnosis Reportへ時間的Contextを渡す。
+
+### Boundaries
+
+このDecisionは以下を定義しない。
+
+- Knowledgeを更新する主体
+- User、Administrator、AI Agent、External Sourceの役割分担
+- External Product Changesの検出方法
+- Reverification Request
+- UpdateのApprove、Reject、Rollback
+- Evidence Conflict Governance
+- Review Schedule
+- TrustまたはReputation Model
+- Moderation Workflow
+- Automated Web Monitoring
+- Source Ingestion Policy
+
+### Knowledge Governance & Renewal
+
+**Status: Open / Future Design — Not Frozen**
+
+Temporal Knowledge Architecture defines how time-aware knowledge is represented and consumed.
+
+Knowledge Governance & Renewal will separately define who or what updates, verifies, approves, and retires that knowledge.
+
+詳細は [Knowledge Governance & Renewal Open Issue](12_OPEN_ISSUE_KNOWLEDGE_GOVERNANCE_RENEWAL.md) を参照する。
