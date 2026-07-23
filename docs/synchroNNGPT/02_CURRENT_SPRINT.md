@@ -123,3 +123,47 @@ Completed:
 - AISA Knowledge Engine (AKE) responsibilities
 - Unknown Route
 - AKE Knowledge Loop
+
+## Phase4: Consultation Navigator
+
+Status:
+
+Frozen
+
+Purpose:
+
+ユーザーとの対話を通じて、曖昧な相談内容をRecommendation Engineが処理可能な
+Consultation Contextへ変換する。
+
+Architecture:
+
+User
+↓
+Consultation Navigator
+├─ Question Catalog
+├─ Navigation Rules
+├─ Answer Validation
+├─ Context Update
+└─ Completion Check
+↓
+Consultation Context
+↓
+Recommendation Engine
+
+Completion Criteria:
+
+- Consultation Contextの標準構造が定義されている
+- 必須項目、任意項目、未回答状態が定義されている
+- Question CatalogとNavigation Rulesが分離されている
+- Diagnostic PatternとNavigation Logicが分離されている
+- Consultation Completion Checkが定義されている
+- Information UnknownとKnowledge Unknownが区別されている
+- 自由回答のContext登録前確認方針が定義されている
+- 回答修正のBeta初期方針が定義されている
+
+Next Step:
+
+Vertical Slice 0 Specification
+
+Phase4完了後、Phase5へ進む前に、
+AISAを端から端まで最低限動作させるVertical Slice 0を設計・実装する。
