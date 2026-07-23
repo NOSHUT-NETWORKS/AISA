@@ -1,0 +1,66 @@
+[
+  {
+    "question_id": "Q-PURPOSE-001",
+    "text": "今日はどんな相談ですか？",
+    "answer_type": "single_choice",
+    "context_field": "purpose",
+    "required": true,
+    "options": [
+      {"value": "automation", "label": "業務を自動化したい"},
+      {"value": "efficiency", "label": "業務を効率化したい"},
+      {"value": "ai_adoption", "label": "AIを導入したい"},
+      {"value": "quality", "label": "品質を上げたい"},
+      {"value": "cost_reduction", "label": "コストを削減したい"},
+      {"value": "comparison", "label": "比較検討したい"}
+    ]
+  },
+  {
+    "question_id": "Q-TOOLS-001",
+    "text": "現在、主に利用しているツールはどれですか？",
+    "answer_type": "single_choice",
+    "context_field": "current_tool",
+    "required": true,
+    "options": [
+      {"value": "word", "label": "Word"},
+      {"value": "excel", "label": "Excel"},
+      {"value": "teams", "label": "Teams"},
+      {"value": "sharepoint", "label": "SharePoint"},
+      {"value": "other", "label": "その他"}
+    ]
+  },
+  {
+    "question_id": "Q-PROBLEM-001",
+    "text": "最も困っていることはどれですか？",
+    "answer_type": "single_choice",
+    "context_field": "main_problem",
+    "required": true,
+    "options": [
+      {
+        "value": "repetitive_document_creation",
+        "label": "同じ資料を繰り返し作成している"
+      },
+      {"value": "manual_data_entry", "label": "転記や手入力が多い"},
+      {"value": "slow_approval", "label": "承認工程が遅い"},
+      {
+        "value": "inconsistent_quality",
+        "label": "品質が担当者によって異なる"
+      },
+      {
+        "value": "slow_inquiry_response",
+        "label": "問い合わせ対応に時間がかかる"
+      }
+    ]
+  },
+  {
+    "question_id": "Q-PRIORITY-001",
+    "text": "今回、最も優先したいことはどれですか？",
+    "answer_type": "single_choice",
+    "context_field": "priority",
+    "required": true,
+    "options": [
+      {"value": "cost", "label": "費用を抑える"},
+      {"value": "time", "label": "時間を短縮する"},
+      {"value": "ai", "label": "AIを活用する"}
+    ]
+  }
+]

@@ -1,0 +1,24 @@
+[
+  {
+    "rule_id": "NAV-001",
+    "question_id": "Q-PURPOSE-001",
+    "when": {"answered": []}
+  },
+  {
+    "rule_id": "NAV-002",
+    "question_id": "Q-TOOLS-001",
+    "when": {"answered": ["purpose"]}
+  },
+  {
+    "rule_id": "NAV-003",
+    "question_id": "Q-PROBLEM-001",
+    "when": {"answered": ["purpose", "current_tool"]}
+  },
+  {
+    "rule_id": "NAV-004",
+    "question_id": "Q-PRIORITY-001",
+    "when": {
+      "answered": ["purpose", "current_tool", "main_problem"]
+    }
+  }
+]
